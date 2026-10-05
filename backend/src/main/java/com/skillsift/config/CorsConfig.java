@@ -23,12 +23,18 @@ public class CorsConfig {
                 .map(String::trim)
                 .toList();
 
+        configuration.addAllowedOriginPattern("https://*.vercel.app");
+        configuration.addAllowedOriginPattern("http://localhost:*");
+        configuration.setAllowCredentials(true);
+
         if (origins.contains("*")) {
             configuration.addAllowedOriginPattern("*");
-            configuration.setAllowCredentials(true);
         } else {
-            configuration.setAllowedOrigins(origins);
-            configuration.setAllowCredentials(true);
+            for (String origin : origins) {
+                if (!origin.isBlank()) {
+                    configuration.addAllowedOriginPattern(origin);
+                }
+            }
         }
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Accept", "X-Requested-With", "Origin"));
