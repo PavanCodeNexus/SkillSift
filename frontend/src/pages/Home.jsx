@@ -4,35 +4,53 @@ import SearchBar from '../components/SearchBar';
 import CourseGrid from '../components/CourseGrid';
 import AuthModal from '../components/AuthModal';
 import { DUMMY_COURSES } from '../utils/dummyData';
+import { useAuth } from '../hooks/useAuth';
 import { Flame } from 'lucide-react';
 import './Home.css';
 
 export default function Home() {
+  const { isAuthenticated } = useAuth();
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [authTab, setAuthTab] = useState('login');
   const [courses] = useState(DUMMY_COURSES);
 
   const handleSearch = (topic) => {
-    // Per PRD Section 5: Unauthenticated search triggers Login / Register popup
-    setAuthTab('login');
-    setIsAuthOpen(true);
+    if (!isAuthenticated) {
+      setAuthTab('login');
+      setIsAuthOpen(true);
+      return;
+    }
+    // Authenticated search flow will be wired in Phase 3
+    console.log('Searching for:', topic);
   };
 
   const handleWatch = (course) => {
-    // Open watch or prompt auth
-    setAuthTab('login');
-    setIsAuthOpen(true);
+    if (!isAuthenticated) {
+      setAuthTab('login');
+      setIsAuthOpen(true);
+      return;
+    }
+    console.log('Watching course:', course);
   };
 
   const handleSave = (course) => {
-    // Save to playlist requires account
-    setAuthTab('register');
-    setIsAuthOpen(true);
+    if (!isAuthenticated) {
+      setAuthTab('register');
+      setIsAuthOpen(true);
+      return;
+    }
+    console.log('Saving to playlist:', course);
   };
 
   return (
     <div className="home-layout">
-      <Navbar onSearchClick={() => setIsAuthOpen(true)} />
+      <Navbar 
+        onSearchClick={() => handleSearch('Trending')} 
+        onAuthClick={() => {
+          setAuthTab('login');
+          setIsAuthOpen(true);
+        }}
+      />
 
       <main className="container">
         <SearchBar onSearch={handleSearch} />
