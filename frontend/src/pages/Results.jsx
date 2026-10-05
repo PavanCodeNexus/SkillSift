@@ -34,7 +34,9 @@ export default function Results({ initialQuery, onBackToHome, onWatchCourse, onS
       const data = await searchApi.search(effectiveQuery, level, lang);
       setCourses(data);
     } catch (err) {
-      setError('Could not load course recommendations. Please try again.');
+      console.error('Search API error:', err);
+      const msg = err.response?.data?.message || err.message || 'Network Error';
+      setError(`Could not load course recommendations (${msg}). Please try again.`);
     } finally {
       setLoading(false);
     }
