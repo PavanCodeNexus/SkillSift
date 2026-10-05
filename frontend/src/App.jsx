@@ -5,6 +5,7 @@ import Results from './pages/Results';
 import Watch from './pages/Watch';
 import Playlists from './pages/Playlists';
 import History from './pages/History';
+import Profile from './pages/Profile';
 import AddToPlaylistModal from './components/AddToPlaylistModal';
 import './styles/global.css';
 
@@ -75,6 +76,13 @@ export default function App() {
           <History 
             onBack={() => setCurrentView('home')}
             onWatchCourse={handleWatchCourse}
+            onNavigate={handleNavigate}
+          />
+        )}
+
+        {currentView === 'profile' && (
+          <Profile 
+            onBack={() => setCurrentView('home')}
             onNavigate={handleNavigate}
           />
         )}

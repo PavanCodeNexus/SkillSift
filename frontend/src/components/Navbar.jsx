@@ -68,7 +68,14 @@ export default function Navbar({ onAuthClick, onNavigate }) {
                     <p className="dropdown-email">{user?.email}</p>
                     {user?.college && <p className="dropdown-college">🎓 {user?.college}</p>}
                   </div>
-                  <div className="dropdown-divider" />
+                  <button 
+                    type="button" 
+                    className="dropdown-item"
+                    onClick={() => handleNavClick('profile')}
+                  >
+                    <UserIcon size={16} />
+                    <span>My Profile & Stats</span>
+                  </button>
                   <button 
                     type="button" 
                     className="dropdown-item"

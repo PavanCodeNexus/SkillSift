@@ -12,6 +12,7 @@ export default function Results({ initialQuery, onBackToHome, onWatchCourse, onS
   const { isAuthenticated } = useAuth();
   const [query, setQuery] = useState(initialQuery || '');
   const [level, setLevel] = useState('Beginner');
+  const [goal, setGoal] = useState('all');
   const [lang, setLang] = useState('en');
 
   const [courses, setCourses] = useState([]);
@@ -21,7 +22,7 @@ export default function Results({ initialQuery, onBackToHome, onWatchCourse, onS
 
   useEffect(() => {
     fetchResults();
-  }, [query, level, lang]);
+  }, [query, level, goal, lang]);
 
   const fetchResults = async () => {
     if (!query) return;
@@ -29,7 +30,8 @@ export default function Results({ initialQuery, onBackToHome, onWatchCourse, onS
     setError('');
 
     try {
-      const data = await searchApi.search(query, level, lang);
+      const effectiveQuery = goal !== 'all' ? `${query} ${goal}` : query;
+      const data = await searchApi.search(effectiveQuery, level, lang);
       setCourses(data);
     } catch (err) {
       setError('Could not load course recommendations. Please try again.');
@@ -83,6 +85,8 @@ export default function Results({ initialQuery, onBackToHome, onWatchCourse, onS
         <Filters 
           selectedLevel={level}
           onSelectLevel={setLevel}
+          selectedGoal={goal}
+          onSelectGoal={setGoal}
           selectedLang={lang}
           onSelectLang={setLang}
         />
