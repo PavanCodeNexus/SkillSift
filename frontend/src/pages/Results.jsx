@@ -8,7 +8,7 @@ import { useAuth } from '../hooks/useAuth';
 import { ArrowLeft, Sparkles, Loader2, AlertCircle } from 'lucide-react';
 import './Results.css';
 
-export default function Results({ initialQuery, onBackToHome }) {
+export default function Results({ initialQuery, onBackToHome, onWatchCourse, onSaveCourse, onNavigate }) {
   const { isAuthenticated } = useAuth();
   const [query, setQuery] = useState(initialQuery || '');
   const [level, setLevel] = useState('Beginner');
@@ -46,8 +46,9 @@ export default function Results({ initialQuery, onBackToHome }) {
       setIsAuthOpen(true);
       return;
     }
-    // Watch modal or embedded player navigation
-    window.open(`https://www.youtube.com/watch?v=${course.videoId}`, '_blank');
+    if (onWatchCourse) {
+      onWatchCourse(course);
+    }
   };
 
   const handleSave = (course) => {
@@ -55,7 +56,9 @@ export default function Results({ initialQuery, onBackToHome }) {
       setIsAuthOpen(true);
       return;
     }
-    alert(`Saved "${course.title}" to your playlist!`);
+    if (onSaveCourse) {
+      onSaveCourse(course);
+    }
   };
 
   return (
@@ -63,6 +66,7 @@ export default function Results({ initialQuery, onBackToHome }) {
       <Navbar 
         onSearchClick={() => setIsAuthOpen(true)}
         onAuthClick={() => setIsAuthOpen(true)}
+        onNavigate={onNavigate}
       />
 
       <main className="container results-container">

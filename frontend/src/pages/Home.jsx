@@ -8,7 +8,7 @@ import { useAuth } from '../hooks/useAuth';
 import { Flame } from 'lucide-react';
 import './Home.css';
 
-export default function Home({ onNavigateToSearch }) {
+export default function Home({ onNavigateToSearch, onWatchCourse, onSaveCourse, onNavigate }) {
   const { isAuthenticated } = useAuth();
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [authTab, setAuthTab] = useState('login');
@@ -33,7 +33,7 @@ export default function Home({ onNavigateToSearch }) {
       setIsAuthOpen(true);
       return;
     }
-    console.log('Watching course:', course);
+    if (onWatchCourse) onWatchCourse(course);
   };
 
   const handleSave = (course) => {
@@ -42,7 +42,7 @@ export default function Home({ onNavigateToSearch }) {
       setIsAuthOpen(true);
       return;
     }
-    console.log('Saving to playlist:', course);
+    if (onSaveCourse) onSaveCourse(course);
   };
 
   return (
@@ -53,6 +53,7 @@ export default function Home({ onNavigateToSearch }) {
           setAuthTab('login');
           setIsAuthOpen(true);
         }}
+        onNavigate={onNavigate}
       />
 
       <main className="container">

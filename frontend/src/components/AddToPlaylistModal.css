@@ -1,0 +1,133 @@
+.playlist-modal {
+  background-color: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  width: 100%;
+  max-width: 400px;
+  padding: var(--space-6);
+}
+
+.modal-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+}
+
+.modal-heading {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.modal-close {
+  color: var(--muted);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+}
+
+.modal-close:hover {
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+.create-playlist-row {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.create-playlist-row input {
+  flex: 1;
+  padding: 0 var(--space-3);
+  height: 38px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background-color: var(--bg);
+  font-size: 13px;
+  outline: none;
+}
+
+.create-playlist-row input:focus {
+  border-color: var(--primary);
+  background-color: var(--surface);
+}
+
+.create-playlist-row button {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  background-color: var(--primary);
+  color: white;
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.playlist-list {
+  max-height: 220px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.playlist-option-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2) var(--space-3);
+  background-color: var(--bg);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+
+.playlist-option-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.add-item-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  min-height: 28px;
+  transition: all var(--transition);
+}
+
+.add-item-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.add-item-btn.added {
+  background-color: var(--success-light);
+  border-color: var(--success);
+  color: var(--success);
+}
+
+.modal-loader {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-4) 0;
+}
+
+.no-playlists-note {
+  font-size: 13px;
+  color: var(--muted);
+  text-align: center;
+  padding: var(--space-4) 0;
+}

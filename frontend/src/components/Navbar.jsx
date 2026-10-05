@@ -52,6 +52,27 @@ export default function Navbar({ onSearchClick, onAuthClick }) {
                   <div className="dropdown-divider" />
                   <button 
                     type="button" 
+                    className="dropdown-item"
+                    onClick={() => {
+                      setDropdownOpen(false);
+                      if (onNavigate) onNavigate('playlists');
+                    }}
+                  >
+                    <span>My Playlists</span>
+                  </button>
+                  <button 
+                    type="button" 
+                    className="dropdown-item"
+                    onClick={() => {
+                      setDropdownOpen(false);
+                      if (onNavigate) onNavigate('history');
+                    }}
+                  >
+                    <span>Watch History</span>
+                  </button>
+                  <div className="dropdown-divider" />
+                  <button 
+                    type="button" 
                     className="dropdown-item logout-item"
                     onClick={() => {
                       logout();
