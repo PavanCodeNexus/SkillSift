@@ -4,7 +4,7 @@ import { playlistApi } from '../api/playlistApi';
 import { ArrowLeft, Trash2, Folder, Play, Loader2 } from 'lucide-react';
 import './Playlists.css';
 
-export default function Playlists({ onBack, onWatchCourse }) {
+export default function Playlists({ onBack, onWatchCourse, onNavigate }) {
   const [playlists, setPlaylists] = useState([]);
   const [selectedPlaylist, setSelectedPlaylist] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -43,7 +43,7 @@ export default function Playlists({ onBack, onWatchCourse }) {
 
   return (
     <div className="playlists-page-layout">
-      <Navbar />
+      <Navbar onNavigate={onNavigate} />
 
       <main className="container playlists-page-container">
         <button type="button" className="back-btn" onClick={onBack}>

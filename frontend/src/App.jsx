@@ -59,6 +59,7 @@ export default function App() {
             course={activeCourse}
             onBack={() => setCurrentView('results')}
             onSave={handleOpenPlaylistModal}
+            onNavigate={handleNavigate}
           />
         )}
 
@@ -66,6 +67,7 @@ export default function App() {
           <Playlists 
             onBack={() => setCurrentView('home')}
             onWatchCourse={handleWatchCourse}
+            onNavigate={handleNavigate}
           />
         )}
 
@@ -73,6 +75,7 @@ export default function App() {
           <History 
             onBack={() => setCurrentView('home')}
             onWatchCourse={handleWatchCourse}
+            onNavigate={handleNavigate}
           />
         )}
 

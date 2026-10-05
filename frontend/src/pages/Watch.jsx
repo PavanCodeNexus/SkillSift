@@ -5,7 +5,7 @@ import { useAuth } from '../hooks/useAuth';
 import { ArrowLeft, Sparkles, Bookmark } from 'lucide-react';
 import './Watch.css';
 
-export default function Watch({ course, onBack, onSave }) {
+export default function Watch({ course, onBack, onSave, onNavigate }) {
   const { isAuthenticated } = useAuth();
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export default function Watch({ course, onBack, onSave }) {
 
   return (
     <div className="watch-layout">
-      <Navbar />
+      <Navbar onNavigate={onNavigate} />
 
       <main className="container watch-container">
         <button type="button" className="back-btn" onClick={onBack}>

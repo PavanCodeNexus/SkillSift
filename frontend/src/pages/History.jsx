@@ -4,7 +4,7 @@ import { historyApi } from '../api/historyApi';
 import { ArrowLeft, Trash2, Clock, Play, Loader2 } from 'lucide-react';
 import './History.css';
 
-export default function History({ onBack, onWatchCourse }) {
+export default function History({ onBack, onWatchCourse, onNavigate }) {
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -36,7 +36,7 @@ export default function History({ onBack, onWatchCourse }) {
 
   return (
     <div className="history-page-layout">
-      <Navbar />
+      <Navbar onNavigate={onNavigate} />
 
       <main className="container history-page-container">
         <button type="button" className="back-btn" onClick={onBack}>

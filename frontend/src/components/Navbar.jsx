@@ -1,16 +1,23 @@
 import React, { useState } from 'react';
-import { Compass, User as UserIcon, Search, LogOut } from 'lucide-react';
+import { Compass, User as UserIcon, LogOut, Bookmark, History, LayoutDashboard } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import './Navbar.css';
 
-export default function Navbar({ onSearchClick, onAuthClick }) {
+export default function Navbar({ onAuthClick, onNavigate }) {
   const { user, isAuthenticated, logout } = useAuth();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const handleNavClick = (view) => {
+    setDropdownOpen(false);
+    if (onNavigate) {
+      onNavigate(view);
+    }
+  };
 
   return (
     <header className="navbar">
       <div className="container navbar-inner">
-        <div className="navbar-brand">
+        <div className="navbar-brand" onClick={() => handleNavClick('home')}>
           <div className="brand-icon">
             <Compass size={24} color="#FFFFFF" />
           </div>
@@ -18,6 +25,27 @@ export default function Navbar({ onSearchClick, onAuthClick }) {
         </div>
 
         <div className="navbar-actions">
+          {/* Quick Direct Links in the Header for Instant Access */}
+          {isAuthenticated && (
+            <div className="nav-quick-links">
+              <button 
+                type="button" 
+                className="nav-link-btn"
+                onClick={() => handleNavClick('playlists')}
+              >
+                <Bookmark size={16} />
+                <span>My Playlists</span>
+              </button>
+              <button 
+                type="button" 
+                className="nav-link-btn"
+                onClick={() => handleNavClick('history')}
+              >
+                <History size={16} />
+                <span>History</span>
+              </button>
+            </div>
+          )}
 
           {isAuthenticated ? (
             <div className="user-profile-menu">
@@ -44,21 +72,25 @@ export default function Navbar({ onSearchClick, onAuthClick }) {
                   <button 
                     type="button" 
                     className="dropdown-item"
-                    onClick={() => {
-                      setDropdownOpen(false);
-                      if (onNavigate) onNavigate('playlists');
-                    }}
+                    onClick={() => handleNavClick('home')}
                   >
+                    <LayoutDashboard size={16} />
+                    <span>Home & Catalog</span>
+                  </button>
+                  <button 
+                    type="button" 
+                    className="dropdown-item"
+                    onClick={() => handleNavClick('playlists')}
+                  >
+                    <Bookmark size={16} />
                     <span>My Playlists</span>
                   </button>
                   <button 
                     type="button" 
                     className="dropdown-item"
-                    onClick={() => {
-                      setDropdownOpen(false);
-                      if (onNavigate) onNavigate('history');
-                    }}
+                    onClick={() => handleNavClick('history')}
                   >
+                    <History size={16} />
                     <span>Watch History</span>
                   </button>
                   <div className="dropdown-divider" />
