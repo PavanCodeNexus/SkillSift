@@ -8,20 +8,23 @@ import { useAuth } from '../hooks/useAuth';
 import { Flame } from 'lucide-react';
 import './Home.css';
 
-export default function Home() {
+export default function Home({ onNavigateToSearch }) {
   const { isAuthenticated } = useAuth();
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [authTab, setAuthTab] = useState('login');
+  const [pendingQuery, setPendingQuery] = useState('');
   const [courses] = useState(DUMMY_COURSES);
 
   const handleSearch = (topic) => {
     if (!isAuthenticated) {
+      setPendingQuery(topic);
       setAuthTab('login');
       setIsAuthOpen(true);
       return;
     }
-    // Authenticated search flow will be wired in Phase 3
-    console.log('Searching for:', topic);
+    if (onNavigateToSearch) {
+      onNavigateToSearch(topic);
+    }
   };
 
   const handleWatch = (course) => {
@@ -85,6 +88,11 @@ export default function Home() {
         activeTab={authTab}
         onTabChange={setAuthTab}
         onClose={() => setIsAuthOpen(false)}
+        onSuccess={() => {
+          if (pendingQuery && onNavigateToSearch) {
+            onNavigateToSearch(pendingQuery);
+          }
+        }}
       />
     </div>
   );
