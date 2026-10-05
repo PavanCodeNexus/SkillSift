@@ -36,7 +36,11 @@ public class PlaylistService {
 
     public List<Playlist> getUserPlaylists(String email) {
         User user = getUserByEmail(email);
-        return playlistRepository.findByUserIdOrderByCreatedAtDesc(user.getId());
+        List<Playlist> playlists = playlistRepository.findByUserIdOrderByCreatedAtDesc(user.getId());
+        for (Playlist p : playlists) {
+            p.setItems(playlistItemRepository.findByPlaylistIdOrderByAddedAtDesc(p.getId()));
+        }
+        return playlists;
     }
 
     @Transactional

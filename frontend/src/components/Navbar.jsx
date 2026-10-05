@@ -18,15 +18,6 @@ export default function Navbar({ onSearchClick, onAuthClick }) {
         </div>
 
         <div className="navbar-actions">
-          <button 
-            type="button" 
-            className="navbar-search-btn"
-            onClick={onSearchClick}
-            aria-label="Search courses"
-          >
-            <Search size={18} />
-            <span className="search-btn-text">Quick search...</span>
-          </button>
 
           {isAuthenticated ? (
             <div className="user-profile-menu">
