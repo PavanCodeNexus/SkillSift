@@ -31,6 +31,14 @@ export default function Navbar({ onAuthClick, onNavigate }) {
               <button 
                 type="button" 
                 className="nav-link-btn"
+                onClick={() => handleNavClick('profile')}
+              >
+                <UserIcon size={16} />
+                <span>My Profile</span>
+              </button>
+              <button 
+                type="button" 
+                className="nav-link-btn"
                 onClick={() => handleNavClick('playlists')}
               >
                 <Bookmark size={16} />
