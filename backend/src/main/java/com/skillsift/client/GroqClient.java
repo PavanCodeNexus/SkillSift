@@ -51,7 +51,7 @@ public class GroqClient {
                     + "Return strictly a JSON object mapping videoId to reason string: {\"<videoId>\": \"<reason>\"}.";
 
             Map<String, Object> payload = Map.of(
-                    "model", "llama-3.3-70b-versatile",
+                    "model", "llama-3.1-8b-instant",
                     "messages", List.of(
                             Map.of("role", "system", "content", systemPrompt),
                             Map.of("role", "user", "content", objectMapper.writeValueAsString(courseSummaries))
