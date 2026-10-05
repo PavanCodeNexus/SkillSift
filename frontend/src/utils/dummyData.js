@@ -1,0 +1,80 @@
+export const DUMMY_COURSES = [
+  {
+    id: "1",
+    videoId: "rfscVS0vtbw",
+    title: "Python Full Course for Beginners [2026 Tutorial]",
+    channelTitle: "freeCodeCamp.org",
+    views: 4320000,
+    durationSeconds: 15420,
+    thumbnailUrl: "https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=640&q=80",
+    level: "Beginner",
+    language: "English",
+    aiReason: "Comprehensive 4-hour foundations with clear OOP breakdown and zero assumed prior knowledge.",
+    publishedAt: "2025-11-10"
+  },
+  {
+    id: "2",
+    videoId: "8hly31xKli0",
+    title: "Data Structures & Algorithms in Java - Full Interview Course",
+    channelTitle: "NeetCode",
+    views: 1850000,
+    durationSeconds: 28800,
+    thumbnailUrl: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=640&q=80",
+    level: "Intermediate",
+    language: "English",
+    aiReason: "Top pick for college placement prep; visual array & tree traversals with LeetCode patterns.",
+    publishedAt: "2025-08-22"
+  },
+  {
+    id: "3",
+    videoId: "7S_tz1z_5bA",
+    title: "SQL & Relational Databases for Engineering Students (Hindi)",
+    channelTitle: "Chai aur Code",
+    views: 920000,
+    durationSeconds: 10800,
+    thumbnailUrl: "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=640&q=80",
+    level: "Beginner",
+    language: "Hindi",
+    aiReason: "In-depth indexing and normalization concepts tailored for university exams & campus hiring.",
+    publishedAt: "2026-01-15"
+  },
+  {
+    id: "4",
+    videoId: "ulprqHHWlng",
+    title: "Spring Boot 3 & Microservices Architecture Deep Dive",
+    channelTitle: "Amigoscode",
+    views: 1250000,
+    durationSeconds: 21600,
+    thumbnailUrl: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=640&q=80",
+    level: "Advanced",
+    language: "English",
+    aiReason: "Industry standard backend patterns: Docker, JWT security, and production-ready REST design.",
+    publishedAt: "2025-12-04"
+  },
+  {
+    id: "5",
+    videoId: "SqcY0GlETPk",
+    title: "Full Stack Web Development with React & Node.js",
+    channelTitle: "Traversy Media",
+    views: 2400000,
+    durationSeconds: 19800,
+    thumbnailUrl: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=640&q=80",
+    level: "Beginner",
+    language: "English",
+    aiReason: "Hands-on project-centric build; perfect for building final year engineering capstones.",
+    publishedAt: "2025-09-18"
+  },
+  {
+    id: "6",
+    videoId: "kUMe1FH4CHE",
+    title: "AWS Cloud Practitioner Certified Masterclass",
+    channelTitle: "Stephane Maarek",
+    views: 1100000,
+    durationSeconds: 14400,
+    thumbnailUrl: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=640&q=80",
+    level: "Beginner",
+    language: "English",
+    aiReason: "Succinct slides and console demos directly mapped to cloud certification domains.",
+    publishedAt: "2026-02-01"
+  }
+];
