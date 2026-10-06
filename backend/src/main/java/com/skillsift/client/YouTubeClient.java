@@ -66,8 +66,8 @@ public class YouTubeClient {
                     java.nio.charset.StandardCharsets.UTF_8
             );
 
-            // 1. Search for video/playlist items
-            String searchUri = "/search?part=snippet&maxResults=10&type=video&q=" 
+            // 1. Search for video/playlist items (videoDuration=medium fetches videos between 4-20 mins, preventing shorts)
+            String searchUri = "/search?part=snippet&maxResults=15&type=video&videoDuration=medium&q=" 
                     + searchTerms 
                     + "&relevanceLanguage=" + targetLang
                     + "&key=" + apiKey;
@@ -131,7 +131,17 @@ public class YouTubeClient {
                 }
             }
 
-            return new ArrayList<>(resultMap.values());
+            // Exclude YouTube Shorts (videos under 3 minutes or containing #shorts)
+            List<CourseResult> fullCourses = resultMap.values().stream()
+                    .filter(c -> {
+                        boolean isTooShort = c.getDurationSeconds() != null && c.getDurationSeconds() < 180;
+                        boolean hasShortsTag = c.getTitle() != null && c.getTitle().toLowerCase().contains("#shorts");
+                        return !isTooShort && !hasShortsTag;
+                    })
+                    .limit(10)
+                    .toList();
+
+            return fullCourses.isEmpty() ? new ArrayList<>(resultMap.values()) : fullCourses;
 
         } catch (Exception e) {
             log.error("Error calling YouTube API: {}. Using fallback courses.", e.getMessage());

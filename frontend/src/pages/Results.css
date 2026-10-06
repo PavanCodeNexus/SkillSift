@@ -33,10 +33,13 @@
   font-size: 26px;
   font-weight: 800;
   letter-spacing: -0.02em;
+  color: #0F172A;
+  margin-top: var(--space-2);
 }
 
 .highlight-query {
   color: var(--primary);
+  font-weight: 800;
 }
 
 .loading-state, .error-state {
