@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const rawUrl = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
+// If VITE_API_URL is set, use it; in production default to relative '/api' proxy, otherwise localhost
+const defaultUrl = import.meta.env.PROD ? '/api' : 'http://localhost:8080/api';
+const rawUrl = import.meta.env.VITE_API_URL || defaultUrl;
 // Remove trailing slash if present
 const API_BASE_URL = rawUrl.endsWith('/') ? rawUrl.slice(0, -1) : rawUrl;
 
