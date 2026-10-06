@@ -39,10 +39,37 @@ public class YouTubeClient {
         }
 
         try {
+            // Build level-specific search keywords
+            String levelKeyword = "";
+            if (level != null) {
+                switch (level.trim().toLowerCase()) {
+                    case "advanced" -> levelKeyword = " advanced deep dive architecture internals mastery";
+                    case "intermediate" -> levelKeyword = " intermediate real-world practical project";
+                    case "beginner" -> levelKeyword = " complete beginners scratch crash course";
+                    default -> levelKeyword = " tutorial course";
+                }
+            }
+
+            // Build language-specific search keywords
+            String langKeyword = "";
+            String targetLang = (lang != null ? lang.trim().toLowerCase() : "en");
+            switch (targetLang) {
+                case "hi" -> langKeyword = " in Hindi हिंदी";
+                case "te" -> langKeyword = " in Telugu తెలుగు";
+                case "ta" -> langKeyword = " in Tamil தமிழ்";
+                case "kn" -> langKeyword = " in Kannada ಕನ್ನಡ";
+                default -> langKeyword = "";
+            }
+
+            String searchTerms = java.net.URLEncoder.encode(
+                    query.trim() + levelKeyword + langKeyword,
+                    java.nio.charset.StandardCharsets.UTF_8
+            );
+
             // 1. Search for video/playlist items
             String searchUri = "/search?part=snippet&maxResults=10&type=video&q=" 
-                    + query + " course tutorial full" 
-                    + "&relevanceLanguage=" + (lang != null ? lang : "en")
+                    + searchTerms 
+                    + "&relevanceLanguage=" + targetLang
                     + "&key=" + apiKey;
 
             String searchResponse = restClient.get().uri(searchUri).retrieve().body(String.class);
@@ -67,8 +94,19 @@ public class YouTubeClient {
                     cr.setChannelTitle(snippet.path("channelTitle").asText());
                     cr.setThumbnailUrl(snippet.path("thumbnails").path("medium").path("url").asText());
                     cr.setPublishedAt(snippet.path("publishedAt").asText());
-                    cr.setLevel(level != null && !level.isBlank() ? level : "Beginner");
-                    cr.setLanguage(lang != null && !lang.isBlank() ? lang : "English");
+                    String displayLang = switch (targetLang) {
+                        case "hi" -> "Hindi";
+                        case "te" -> "Telugu";
+                        case "ta" -> "Tamil";
+                        case "kn" -> "Kannada";
+                        default -> "English";
+                    };
+                    String displayLevel = (level != null && !level.equalsIgnoreCase("all")) 
+                            ? (Character.toUpperCase(level.charAt(0)) + level.substring(1).toLowerCase()) 
+                            : "Beginner";
+
+                    cr.setLevel(displayLevel);
+                    cr.setLanguage(displayLang);
                     resultMap.put(videoId, cr);
                 }
             }
