@@ -36,7 +36,6 @@ public class SearchService {
         this.objectMapper = objectMapper;
     }
 
-    @Transactional
     public List<CourseResult> search(String query, String level, String lang) {
         String cleanQuery = (query != null ? query.trim().toLowerCase() : "");
         String cleanLevel = (level != null ? level.trim().toLowerCase() : "beginner");
