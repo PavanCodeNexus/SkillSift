@@ -6,6 +6,7 @@ import com.skillsift.dto.CourseResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
@@ -25,7 +26,10 @@ public class YouTubeClient {
     public YouTubeClient(@Value("${youtube.api.key:}") String apiKey, ObjectMapper objectMapper) {
         this.apiKey = apiKey;
         this.objectMapper = objectMapper;
-        this.restClient = RestClient.builder().baseUrl(YOUTUBE_API_BASE).build();
+        SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
+        requestFactory.setConnectTimeout(Duration.ofSeconds(4));
+        requestFactory.setReadTimeout(Duration.ofSeconds(8));
+        this.restClient = RestClient.builder().baseUrl(YOUTUBE_API_BASE).requestFactory(requestFactory).build();
     }
 
     public List<CourseResult> searchCourses(String query, String level, String lang) {

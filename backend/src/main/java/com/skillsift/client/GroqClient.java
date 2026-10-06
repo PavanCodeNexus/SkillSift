@@ -7,9 +7,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
+import java.time.Duration;
 import java.util.*;
 
 @Component
@@ -25,7 +27,10 @@ public class GroqClient {
     public GroqClient(@Value("${groq.api.key:}") String apiKey, ObjectMapper objectMapper) {
         this.apiKey = apiKey;
         this.objectMapper = objectMapper;
-        this.restClient = RestClient.builder().build();
+        SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
+        requestFactory.setConnectTimeout(Duration.ofSeconds(4));
+        requestFactory.setReadTimeout(Duration.ofSeconds(8));
+        this.restClient = RestClient.builder().requestFactory(requestFactory).build();
     }
 
     public Map<String, String> rankAndExplain(String query, String level, List<CourseResult> courses) {
